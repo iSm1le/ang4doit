@@ -1,8 +1,8 @@
 import { Component, AfterContentInit } from '@angular/core';
 import DG from '2gis-maps';
-import { MarkerService } from "../services/marker.service";
-import { ToastComponent } from "../shared/toast/toast.component";
-import { AuthService } from "../services/auth.service";
+import { MarkerService } from '../services/marker.service';
+import { ToastComponent } from '../shared/toast/toast.component';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-map',
@@ -19,7 +19,7 @@ export class MapComponent implements AfterContentInit {
   constructor(private markerService: MarkerService, public toast: ToastComponent, public auth: AuthService) { }
 
   ngAfterContentInit() {
-    this.map = DG.map('map',{
+    this.map = DG.map('map', {
       'center': [46.411, 30.727],
       'zoom': 16,
       'zoomControl': true,
@@ -27,7 +27,7 @@ export class MapComponent implements AfterContentInit {
     });
     this.mapMarkers.addTo(this.map);
     this.map.on('click', (ev) => {
-      this.markers.push({'name': 'Marker', 'lat':ev.latlng.lat, 'lng': ev.latlng.lng});
+      this.markers.push({'name': 'Marker', 'lat': ev.latlng.lat, 'lng': ev.latlng.lng});
       DG.marker(ev.latlng).addTo(this.mapMarkers).bindPopup('Marker');
     });
   }
@@ -39,10 +39,14 @@ export class MapComponent implements AfterContentInit {
   }
 
   getDGSearchData(search: {page: number, pageSize: number, what: string, point: {lat: number, lng: number}, key: string}, clear: boolean = false) {
-    if (clear) this.clearSearchMarkers();
+    if (clear) {
+      this.clearSearchMarkers();
+    }
     this.markerService.getDGSearchData(search).subscribe(
       data => {
-        if (data.response.code > 200) this.toast.setMessage('No results', 'danger')
+        if (data.response.code > 200) {
+          this.toast.setMessage('No results', 'danger');
+        }
         console.log(data);
         this.appendSearchMarkers(data);
         this.toast.setMessage('You searched for ' + search.what, 'success');
@@ -77,11 +81,13 @@ export class MapComponent implements AfterContentInit {
     );
   }
 
-  addMarker(marker: {'name':string, 'lat':number, 'lng':number}, fetch: boolean = false) {
+  addMarker(marker: {'name': string, 'lat': number, 'lng': number}, fetch: boolean = false) {
     this.markerService.addMarker(marker).subscribe(
       res => {
         this.toast.setMessage('Marker added', 'success');
-        if (fetch) this.getMarkers();
+        if (fetch) {
+          this.getMarkers();
+        }
       },
       error => this.toast.setMessage('Error while adding marker', 'danger')
     );
@@ -112,7 +118,7 @@ export class MapComponent implements AfterContentInit {
 
   saveMarkers() {
     for (let i = 0; i < this.markers.length; i++) {
-      if (i == this.markers.length - 1) {
+      if (i === this.markers.length - 1) {
         this.addMarker(this.markers[i], true);
         this.toast.setMessage('Markers saved to DB', 'success');
         continue;

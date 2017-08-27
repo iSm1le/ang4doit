@@ -37,7 +37,7 @@ export class MarkerService {
   }
 
   getDGSearchData(search: {page: number, pageSize: number, what: string, point: {lat: number, lng: number}, key: string}) {
-    return this.http.get(`http://catalog.api.2gis.ru/2.0/search?page=${search.page}&page_size=${search.pageSize}&what=${encodeURIComponent(search.what)}&point=${search.point.lng},${search.point.lat}&radius=1000&type=filial&lang=ru&key=${search.key}`).map(res => res.json());
+    return this.http.get(`http://catalog.api.2gis.ru/2.0/search?page=${search.page}&page_size=${search.pageSize}&what=${encodeURIComponent(search.what)}&point=${search.point.lng},${search.point.lat}&radius=1000&type=filial&lang=ru&key=${search.key}`).map(res => res.json()); // lint-disable-line
   }
 
 }

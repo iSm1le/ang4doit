@@ -1,0 +1,45 @@
+<div class="container">
+  <app-toast [message]="toast.message"></app-toast>
+  <div class="row">
+    <div class="col-lg-8">
+      <div id="map"></div>
+      <br>
+      <button class="btn btn-primary" *ngFor="let search of searches" (click)="getDataFor(search)"> {{search}} </button>
+      <button class="btn btn-danger" (click)="clearSearchMarkers()">Remove all search markers</button>
+    </div>
+    <div class="col-lg-4">
+      <div class="card" id="markers" [ngStyle]="{'overflow-y': markers.length > 8 ? 'scroll' : 'hidden'}">
+        <h5 class="card-header">Markers ({{markers.length}}) <button class="btn btn-success" (click)="saveMarkers()">Save</button> <button class="btn btn-primary" (click)="getMarkers()">Load</button> <button class="btn btn-primary" (click)="hideMarkers()">Hide</button></h5>
+        <div class="card-block">
+          <table class="table table-bordered table-striped">
+            <thead class="thead-default">
+              <tr>
+                <th>Name</th>
+                <th>Lat</th>
+                <th>Lng</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="markers.length === 0">
+              <tr>
+                <td colspan="4">You dont added any markers yet.</td>
+              </tr>  
+            </tbody>
+            <tbody>
+              <tr *ngFor="let marker of markers" [ngStyle]="{'display': marker.status === 'delete' ? 'none' : 'table-row'}">
+                <td>{{marker.name}}</td>
+                <td>{{marker.lat}}</td>
+                <td>{{marker.lng}}</td>
+                <td>
+                  <button class="btn btn-sm btn-danger" (click)="deleteMarker(marker)">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </td>
+              </tr>  
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

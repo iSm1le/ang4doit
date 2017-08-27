@@ -1,0 +1,27 @@
+.container {
+    padding: 3.6rem 0 0 0;
+    height: 89%;
+}
+
+.row {
+    height: 100%;
+}
+
+td {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 85px;
+}
+
+button {
+    margin: 0 .5%;
+}
+
+#map {
+    height: 60%
+}
+
+#markers {
+    max-height: 60%;
+}

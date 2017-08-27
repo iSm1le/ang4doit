@@ -1,0 +1,17 @@
+#cover {
+    background: #222 url('/assets/img/nature.jpg') center center no-repeat;
+    background-size: cover;
+    margin: 0;
+    color: white;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+  }
+  
+  #cover-caption {
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 1.875rem;
+    width: 100%;
+  }

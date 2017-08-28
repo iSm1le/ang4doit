@@ -15,6 +15,7 @@ export class MapComponent implements AfterContentInit {
   lastSearchData = DG.layerGroup();
   map;
   searches = ['Аптека', 'Магазин', 'Заправка', 'Школа', 'Ресторан'];
+  gisApiKey = 'ruoedw9225'; //Probably you needed to change me;)
 
   constructor(private markerService: MarkerService, public toast: ToastComponent, public auth: AuthService) { }
 
@@ -32,10 +33,8 @@ export class MapComponent implements AfterContentInit {
     });
   }
 
-  /*-----------------------------------------------------------*/
-
   getDataFor(request) {
-    this.getDGSearchData({page: 1, pageSize: 50, what: request, point: {lat: this.map.getCenter().lat, lng: this.map.getCenter().lng}, key: 'ruoedw9225'});
+    this.getDGSearchData({page: 1, pageSize: 50, what: request, point: {lat: this.map.getCenter().lat, lng: this.map.getCenter().lng}, key: this.gisApiKey });
   }
 
   getDGSearchData(search: {page: number, pageSize: number, what: string, point: {lat: number, lng: number}, key: string}, clear: boolean = false) {
@@ -121,11 +120,11 @@ export class MapComponent implements AfterContentInit {
       if (i === this.markers.length - 1) {
         this.addMarker(this.markers[i], true);
         this.toast.setMessage('Markers saved to DB', 'success');
-        continue;
+        return true;
       }
       this.addMarker(this.markers[i]);
     }
-    setTimeout(this.getMarkers(), 1000);
+    return false;
   }
 
 }
